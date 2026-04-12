@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://controlpanel"]
 
 [ext_resource path="res://Themes/Default/ButtonIcons/Play_Active.svg" type="Texture2D" id=1]
 [ext_resource path="res://Themes/Default/ButtonIcons/Pause_Inactive.svg" type="Texture2D" id=2]

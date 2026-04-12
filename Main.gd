@@ -5,7 +5,7 @@ extends Control
 @onready var sequencer: Node = $Application/Main/SongEditor/Sequencer
 @onready var instrument_panel: VBoxContainer = $Application/InstrumentsPanel
 
-var project: Project
+var project: Resource
 
 signal project_changed(project)
 
@@ -63,21 +63,20 @@ func _ready():
 	# Load instruments
 	var progress = dialog_manager.progress("Loading...")
 	var _n = GoDAW.connect("loading_progress_max_value_changed", Callable(progress, "set_max"))
-	_n = GoDAW.connect("loading_progress_value_changed", Callable(progress, "set_value").bind(progress.value+1))
+	_n = GoDAW.connect("loading_progress_value_changed", Callable(self, "_on_progress_value_changed").bind(progress))
 	_n = GoDAW.connect("loading_instrument_changed", Callable(dialog_manager.progress_label, "set_text"))
 	await GoDAW.load_instruments().completed
 	dialog_manager.hide_progress()
 	instrument_panel.reload_instruments()
 
 	# Clear song history.
-	var dir = DirAccess.new()
-	dir.open("user://")
-	if dir.file_exists("song.gd"):
-		dir.remove("song.gd")
+	var dir = DirAccess.open("user://")
+	if dir:
+		if dir.file_exists("song.gd"):
+			dir.remove("song.gd")
 
 	# Project setup
 	set_project(Project.new())
 
-func set_project(new_project):
-	project = new_project
-	emit_signal("project_changed", project)
+func _on_progress_value_changed(progress: ProgressBar):
+	progress.value += 1

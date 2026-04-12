@@ -1,4 +1,4 @@
-[gd_scene format=2]
+[gd_scene format=3 uid="uid://trackeditor"]
 
 [node name="TrackEditor" type="Window"]
 offset_right = 48.0

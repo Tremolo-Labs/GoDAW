@@ -40,7 +40,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godaw_toolkit/API/Project.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "SampleTools",
 "language": "GDScript",
 "path": "res://addons/godaw_toolkit/API/SampleTools.gd"
@@ -55,7 +55,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godaw_toolkit/API/SongSequence.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "Track",
 "language": "GDScript",
 "path": "res://util/Sequencer/Track.gd"
@@ -65,7 +65,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://util/scripts/Wave.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "Waveforms",
 "language": "GDScript",
 "path": "res://addons/godaw_toolkit/API/Waveforms.gd"

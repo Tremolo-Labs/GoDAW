@@ -27,7 +27,7 @@ var gui: bool = true
 var track_name = preload("./TrackName.tscn")
 var error_text = ""
 var in_file = ""
-var song_file: File
+var song_file: FileAccess
 
 @onready var thread = Thread.new()
 @onready var names = $TracksScroll/HBox/Names
@@ -38,7 +38,6 @@ var song_file: File
 
 func _ready():
 	ERROR_REGEX.compile("SCRIPT ERROR: (.*?)\\n(?:.*?):([0-9]+)")
-	song_file = File.new()
 	connect("done_error_check", Callable(self, "_after_error_check"))
 
 # Takes a Button since it conveniently sends an icon and message
@@ -48,7 +47,7 @@ func add_track(instrument: Button):
 	var name = track_name.instantiate()
 	name.set_instrument(instrument.icon, instrument.text)
 	names.add_child(name)
-	name.connect("pressed", Callable(self, "emit_signal").bind("track_pressed", instrument.text))
+	name.connect("pressed", Callable(self, "_on_track_pressed").bind(instrument.text))
 	
 	# TODO: Hacky code
 	var inst := GoDAW.get_instrument(instrument.text)
@@ -57,12 +56,13 @@ func add_track(instrument: Button):
 func check_error():
 	# Error check
 	var err = []
-	var _n = OS.execute(BIN, ["-s", SCRIPT_LOCATION, "--check-only", "--no-window"], true, err, true)
+	var _n = OS.execute(BIN, ["-s", SCRIPT_LOCATION, "--check-only", "--no-window"], err)
 	var error = ""
-	var regex_result = ERROR_REGEX.search(err[0])
-	if regex_result:
-		var regex_out = ERROR_REGEX.search(err[0]).get_strings()
-		error = "%s at SongScript:%s" % [regex_out[1], regex_out[2]]
+	if err.size() > 0:
+		var regex_result = ERROR_REGEX.search(err[0])
+		if regex_result:
+			var regex_out = ERROR_REGEX.search(err[0]).get_strings()
+			error = "%s at SongScript:%s" % [regex_out[1], regex_out[2]]
 	emit_signal("done_error_check", error)
 
 func _after_error_check(error):
@@ -95,16 +95,14 @@ func sequence():
 	if !gui:
 		emit_signal("start_loading")
 		if in_file != song_script_editor.text:
-			song_file.open(SONG_PATH, File.WRITE_READ)
+			song_file = FileAccess.open(SONG_PATH, FileAccess.WRITE)
 			song_file.store_string(song_script_editor.text)
 			song_file.close()
 			in_file = song_script_editor.text
 			thread.start(Callable(self, "check_error"))
 
-func _on_play():
-	sequence()
-	await self.done_error_handling
-	sequencer.play()
+func _on_track_pressed(instrument_name: String):
+	emit_signal("track_pressed", instrument_name)
 
 func _on_pause():
 	sequencer.pause()
@@ -118,7 +116,7 @@ func _on_Sequencer_playback_finished():
 func _on_TrackEditor_sequence_song(sequence):
 	sequencer.sequence(sequence)
 
-func project_changed(project: Project):
+func project_changed(project: Resource):
 	gui = true if project.project_type == Project.PROJECT_TYPE.GUI else false
 	song_script_editor.visible = !gui
 	track_scroll.visible = gui

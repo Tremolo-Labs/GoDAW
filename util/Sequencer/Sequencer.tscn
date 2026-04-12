@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://sequencer"]
 
 [ext_resource path="res://util/Sequencer/Sequencer.gd" type="Script" id=1]
 

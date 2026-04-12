@@ -9,13 +9,15 @@ var instruments = {}
 func register_instrument(name: String, instrument: PackedScene):
 	self.instruments[name] = instrument
 
-func get_instrument(name: String) -> Instrument:
+func get_instrument(name: String) -> Node:
 	return self.instruments[name].instantiate()
 
 func load_instruments():
-	var dir = DirAccess.new()
-	dir.open("res://Instruments")
-	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir = DirAccess.open("res://Instruments")
+	if dir == null:
+		push_error("Could not open Instruments directory")
+		return
+	dir.list_dir_begin()
 
 	var instruments = []
 

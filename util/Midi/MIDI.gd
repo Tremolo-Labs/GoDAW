@@ -81,13 +81,12 @@ var tracks = []
 # function to parse files to midi
 func parse_file(filename: String = "") -> bool:
 	# Open file, if any errors return false
-	var input_file = File.new()
-	var err = input_file.open(filename, File.READ)
-	if err:
-		push_error("Error Opening File: " + str(err))
+	var input_file = FileAccess.open(filename, FileAccess.READ)
+	if input_file == null:
+		push_error("Error Opening File: " + str(FileAccess.get_open_error()))
 		return false
 
-	input_file.set_big_endian(true)
+	input_file.big_endian = true
 
 	# Parse MIDI File
 
@@ -208,9 +207,9 @@ func parse_file(filename: String = "") -> bool:
 								MetaEventName.MetaSetTempo:
 									# Tempo is in microseconds per quarter note
 									if tempo == 0:
-										(tempo |= (input_file.get_8() << 16))
-										(tempo |= (input_file.get_8() << 8))
-										(tempo |= (input_file.get_8() << 0))
+										tempo |= (input_file.get_8() << 16)
+										tempo |= (input_file.get_8() << 8)
+										tempo |= (input_file.get_8() << 0)
 										bpm = (60000000 / tempo)
 										print("Tempo: ", tempo, " (bpm:", bpm, ")")
 								MetaEventName.MetaSMPTEOffset:

@@ -1,0 +1,118 @@
+libfontconfig.so.1: cannot open shared object file: No such file or directory
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Could not find type "Instrument" in the current scope.
+          at: GDScript::reload (res://addons/godaw_toolkit/API/GoDAW.gd:12)
+ERROR: Failed to load script "res://addons/godaw_toolkit/API/GoDAW.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:2907)
+ERROR: Failed to instantiate an autoload, script 'res://addons/godaw_toolkit/API/GoDAW.gd' does not inherit from 'Node'.
+   at: start (main/main.cpp:4412)
+=== GoDAW Godot 4.6 Migration Test ===
+SCRIPT ERROR: Parse Error: Could not find type "Project" in the current scope.
+          at: GDScript::reload (res://Main.gd:8)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+SCRIPT ERROR: Parse Error: Function "set_project()" not found in base self.
+          at: GDScript::reload (res://Main.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+SCRIPT ERROR: Parse Error: Function "load_instruments()" is a coroutine, so it must be called with "await".
+          at: GDScript::reload (res://Main.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+SCRIPT ERROR: Parse Error: Identifier "Project" not declared in the current scope.
+          at: GDScript::reload (res://Main.gd:79)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+SCRIPT ERROR: Parse Error: Function "set_project()" not found in base self.
+          at: GDScript::reload (res://Main.gd:79)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+ERROR: Failed to load script "res://Main.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:2907)
+   GDScript backtrace (most recent call first):
+       [0] test_script_loading (res://test_migration.gd:71)
+       [1] _initialize (res://test_migration.gd:14)
+ERROR: Resource file not found: res://.import/default_icon.png-599e7d14d4f3de29c24b156b469625f7.stex (expected type: CompressedTexture2D)
+   at: _load (core/io/resource_loader.cpp:351)
+   GDScript backtrace (most recent call first):
+       [0] test_script_loading (res://test_migration.gd:71)
+       [1] _initialize (res://test_migration.gd:14)
+ERROR: Failed loading resource: res://Themes/Default/Images/default_icon.png.
+   at: _load (core/io/resource_loader.cpp:343)
+   GDScript backtrace (most recent call first):
+       [0] test_script_loading (res://test_migration.gd:71)
+       [1] _initialize (res://test_migration.gd:14)
+ERROR: res://Editor/Scenes/SongEditor/TrackName.tscn:13 - Parse Error: [ext_resource] referenced non-existent resource at: res://Themes/Default/Images/default_icon.png.
+   at: _printerr (scene/resources/resource_format_text.cpp:40)
+   GDScript backtrace (most recent call first):
+       [0] test_script_loading (res://test_migration.gd:71)
+       [1] _initialize (res://test_migration.gd:14)
+SCRIPT ERROR: Parse Error: Could not find type "Project" in the current scope.
+          at: GDScript::reload (res://Editor/Scenes/SongEditor/SongEditor.gd:119)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+SCRIPT ERROR: Parse Error: Could not resolve external class member "get_instrument".
+          at: GDScript::reload (res://Editor/Scenes/SongEditor/SongEditor.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "inst" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://Editor/Scenes/SongEditor/SongEditor.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+SCRIPT ERROR: Parse Error: Could not find type "SongScript" in the current scope.
+          at: GDScript::reload (res://Editor/Scenes/SongEditor/SongEditor.gd:76)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+SCRIPT ERROR: Parse Error: Identifier "Project" not declared in the current scope.
+          at: GDScript::reload (res://Editor/Scenes/SongEditor/SongEditor.gd:120)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+ERROR: Failed to load script "res://Editor/Scenes/SongEditor/SongEditor.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:2907)
+   GDScript backtrace (most recent call first):
+       [0] test_script_loading (res://test_migration.gd:71)
+       [1] _initialize (res://test_migration.gd:14)
+SCRIPT ERROR: Parse Error: Expected indented block after "if" block.
+          at: GDScript::reload (res://util/Midi/MIDI.gd:209)
+          GDScript backtrace (most recent call first):
+              [0] test_script_loading (res://test_migration.gd:71)
+              [1] _initialize (res://test_migration.gd:14)
+ERROR: Failed to load script "res://util/Midi/MIDI.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:2907)
+   GDScript backtrace (most recent call first):
+       [0] test_script_loading (res://test_migration.gd:71)
+       [1] _initialize (res://test_migration.gd:14)
+✓ Script loading test passed
+✓ Signal connection test passed
+✓ File API test passed
+SCRIPT ERROR: Parse Error: Could not find type "Note" in the current scope.
+          at: GDScript::reload (res://util/Sequencer/Track.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] test_reference_classes (res://test_migration.gd:113)
+              [1] _initialize (res://test_migration.gd:38)
+ERROR: Failed to load script "res://util/Sequencer/Track.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:2907)
+   GDScript backtrace (most recent call first):
+       [0] test_reference_classes (res://test_migration.gd:113)
+       [1] _initialize (res://test_migration.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: test_reference_classes (res://test_migration.gd:119)
+          GDScript backtrace (most recent call first):
+              [0] test_reference_classes (res://test_migration.gd:119)
+              [1] _initialize (res://test_migration.gd:38)
+✗ Reference classes test failed
+✓ TSCN format test passed
+
+=== Results: 4/5 tests passed ===
+⚠️  Some issues remain - check output above

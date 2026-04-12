@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://songscripteditor"]
 
 [ext_resource path="res://Editor/Scenes/SongScriptEditor/GDScriptSyntaxHighlight.gd" type="Script" id=1]
 

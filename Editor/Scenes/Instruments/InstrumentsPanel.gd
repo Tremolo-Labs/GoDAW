@@ -6,8 +6,10 @@ signal instrument_chosen(instrument)
 @onready var instrument_container = $Panel/Instruments/VBoxContainer
 
 func reload_instruments():
-	var dir = DirAccess.new()
-	dir.open("res://Instruments")
+	var dir = DirAccess.open("res://Instruments")
+	if dir == null:
+		push_error("Could not open Instruments directory")
+		return
 
 	for instrument in GoDAW.instruments:
 		var btn = Button.new()
