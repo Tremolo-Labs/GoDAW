@@ -10,22 +10,22 @@ anchor_bottom = 1.0
 script = ExtResource( 2 )
 
 [node name="Timeline" type="HBoxContainer" parent="."]
-margin_right = 1280.0
-margin_bottom = 10.0
+offset_right = 1280.0
+offset_bottom = 10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Space" type="Control" parent="Timeline"]
-margin_right = 235.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 235, 0 )
+offset_right = 235.0
+offset_bottom = 10.0
+custom_minimum_size = Vector2( 235, 0 )
 
 [node name="Timeline" type="ColorRect" parent="Timeline"]
-margin_left = 239.0
-margin_right = 1271.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 750, 10 )
+offset_left = 239.0
+offset_right = 1271.0
+offset_bottom = 10.0
+custom_minimum_size = Vector2( 750, 10 )
 size_flags_horizontal = 3
 color = Color( 0.0666667, 0.0666667, 0.0823529, 1 )
 __meta__ = {
@@ -37,33 +37,33 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Space2" type="Control" parent="Timeline"]
-margin_left = 1275.0
-margin_right = 1280.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 5, 0 )
+offset_left = 1275.0
+offset_right = 1280.0
+offset_bottom = 10.0
+custom_minimum_size = Vector2( 5, 0 )
 
 [node name="TracksScroll" type="ScrollContainer" parent="."]
 visible = false
-margin_top = 14.0
-margin_right = 1280.0
-margin_bottom = 720.0
+offset_top = 14.0
+offset_right = 1280.0
+offset_bottom = 720.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="HBox" type="HBoxContainer" parent="TracksScroll"]
-margin_right = 1280.0
-margin_bottom = 706.0
+offset_right = 1280.0
+offset_bottom = 706.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Names" type="VBoxContainer" parent="TracksScroll/HBox"]
-margin_bottom = 706.0
+offset_bottom = 706.0
 
 [node name="SongScriptEditor" parent="." instance=ExtResource( 1 )]
 visible = false
-margin_top = 14.0
-margin_right = 1280.0
-margin_bottom = 720.0
+offset_top = 14.0
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="InstrumentContainer" type="Node" parent="."]
 

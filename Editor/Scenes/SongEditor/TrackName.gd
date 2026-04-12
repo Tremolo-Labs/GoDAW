@@ -1,8 +1,8 @@
-extends ToolButton
+extends Button
 
-onready var delete_confirm: ConfirmationDialog = $DeleteConfirm
+@onready var delete_confirm: ConfirmationDialog = $DeleteConfirm
 
-func set_instrument(icon: Texture, instrument_name: String) -> void:
+func set_instrument(icon: Texture2D, instrument_name: String) -> void:
 	self.icon = icon
 	self.text = instrument_name
 	if instrument_name.length() > 20:

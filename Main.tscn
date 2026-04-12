@@ -13,89 +13,89 @@
 [node name="Main" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -8.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 theme = ExtResource( 2 )
-custom_constants/separation = 10
+theme_override_constants/separation = 10
 script = ExtResource( 4 )
 
 [node name="TopMenu" parent="." instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 1264.0
-margin_bottom = 25.0
+offset_right = 1264.0
+offset_bottom = 25.0
 
 [node name="Application" type="HBoxContainer" parent="."]
-margin_top = 35.0
-margin_right = 1264.0
-margin_bottom = 694.0
+offset_top = 35.0
+offset_right = 1264.0
+offset_bottom = 694.0
 size_flags_vertical = 3
-custom_constants/separation = 10
+theme_override_constants/separation = 10
 
 [node name="InstrumentsPanel" parent="Application" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 240.0
-margin_bottom = 659.0
+offset_right = 240.0
+offset_bottom = 659.0
 
 [node name="Main" type="VBoxContainer" parent="Application"]
-margin_left = 250.0
-margin_right = 1264.0
-margin_bottom = 659.0
+offset_left = 250.0
+offset_right = 1264.0
+offset_bottom = 659.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 
 [node name="ControlPanel" parent="Application/Main" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 0.0
-margin_right = 150.0
-margin_bottom = 30.0
+offset_top = 0.0
+offset_right = 150.0
+offset_bottom = 30.0
 size_flags_horizontal = 0
 
 [node name="SongEditor" parent="Application/Main" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 34.0
-margin_right = 1014.0
-margin_bottom = 659.0
+offset_top = 34.0
+offset_right = 1014.0
+offset_bottom = 659.0
 size_flags_vertical = 3
 
 [node name="DialogManager" type="Control" parent="."]
-margin_top = 704.0
-margin_right = 1264.0
-margin_bottom = 704.0
+offset_top = 704.0
+offset_right = 1264.0
+offset_bottom = 704.0
 script = ExtResource( 8 )
 
-[node name="ProgressDialog" type="PopupDialog" parent="DialogManager"]
+[node name="ProgressDialog" type="Popup" parent="DialogManager"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -280.5
-margin_top = -40.5
-margin_right = 280.5
-margin_bottom = 40.5
-popup_exclusive = true
+offset_left = -280.5
+offset_top = -40.5
+offset_right = 280.5
+offset_bottom = 40.5
+exclusive = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DialogManager/ProgressDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -8.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="DialogManager/ProgressDialog/VBoxContainer"]
-margin_top = 10.0
-margin_right = 545.0
-margin_bottom = 27.0
+offset_top = 10.0
+offset_right = 545.0
+offset_bottom = 27.0
 text = "Progressing"
 align = 1
 __meta__ = {
@@ -103,34 +103,34 @@ __meta__ = {
 }
 
 [node name="ProgressBar" type="ProgressBar" parent="DialogManager/ProgressDialog/VBoxContainer"]
-margin_top = 31.0
-margin_right = 545.0
-margin_bottom = 54.0
+offset_top = 31.0
+offset_right = 545.0
+offset_bottom = 54.0
 
-[node name="Loading" type="PopupDialog" parent="DialogManager"]
+[node name="Loading" type="Popup" parent="DialogManager"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -280.5
-margin_top = -40.5
-margin_right = 280.5
-margin_bottom = 40.5
-popup_exclusive = true
+offset_left = -280.5
+offset_top = -40.5
+offset_right = 280.5
+offset_bottom = 40.5
+exclusive = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DialogManager/Loading"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -8.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 alignment = 1
 
 [node name="Label" type="Label" parent="DialogManager/Loading/VBoxContainer"]
-margin_top = 24.0
-margin_right = 545.0
-margin_bottom = 41.0
+offset_top = 24.0
+offset_right = 545.0
+offset_bottom = 41.0
 text = "Loading..."
 align = 1
 __meta__ = {
@@ -138,18 +138,18 @@ __meta__ = {
 }
 
 [node name="FileDialog" type="FileDialog" parent="DialogManager"]
-rect_min_size = Vector2( 876, 480 )
+custom_minimum_size = Vector2( 876, 480 )
 window_title = "Save"
 access = 2
-filters = PoolStringArray( "*.wav ; Wav Files" )
+filters = PackedStringArray( "*.wav ; Wav Files" )
 
 [node name="TrackEditor" parent="DialogManager" instance=ExtResource( 7 )]
 
 [node name="NewSong" parent="DialogManager" instance=ExtResource( 9 )]
 
-[node name="ErrorDialog" type="WindowDialog" parent="DialogManager"]
-margin_right = 480.0
-margin_bottom = 140.0
+[node name="ErrorDialog" type="Window" parent="DialogManager"]
+offset_right = 480.0
+offset_bottom = 140.0
 window_title = "Error"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="DialogManager/ErrorDialog"]
@@ -160,8 +160,8 @@ size_flags_vertical = 3
 
 [node name="ErrorMessage" type="Label" parent="DialogManager/ErrorDialog/ScrollContainer"]
 unique_name_in_owner = true
-margin_right = 480.0
-margin_bottom = 140.0
+offset_right = 480.0
+offset_bottom = 140.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 align = 1

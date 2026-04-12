@@ -27,7 +27,8 @@ const KEYS := {
 
 var current_key := ""
 
-func _init().("DTMF"):
+func _init():
+	super("DTMF")
 	pass
 
 func waveform(t: float) -> float:
@@ -43,8 +44,8 @@ func waveform(t: float) -> float:
 
 func play_note(note: Note):
 	self.current_key = note.instrument_data
-	.play_note(note)
+	super.play_note(note)
 
 func stop_note(note: Note):
 	self.current_key = ""
-	.stop_note(note)
+	super.stop_note(note)

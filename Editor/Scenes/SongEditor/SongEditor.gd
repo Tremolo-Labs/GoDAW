@@ -9,8 +9,8 @@ signal done_error_check(error)
 signal song_script_error(error)
 signal track_pressed (name)
 
-onready var SCRIPT_LOCATION = OS.get_user_data_dir() + "/song.gd"
-onready var BIN = OS.get_executable_path()
+@onready var SCRIPT_LOCATION = OS.get_user_data_dir() + "/song.gd"
+@onready var BIN = OS.get_executable_path()
 var ERROR_REGEX = RegEx.new()
 const SONG_PATH = "user://song.gd"
 
@@ -29,26 +29,26 @@ var error_text = ""
 var in_file = ""
 var song_file: File
 
-onready var thread = Thread.new()
-onready var names = $TracksScroll/HBox/Names
-onready var song_script_editor = $SongScriptEditor
-onready var track_scroll = $TracksScroll
-onready var sequencer = $Sequencer
-onready var instrument_container = $InstrumentContainer
+@onready var thread = Thread.new()
+@onready var names = $TracksScroll/HBox/Names
+@onready var song_script_editor = $SongScriptEditor
+@onready var track_scroll = $TracksScroll
+@onready var sequencer = $Sequencer
+@onready var instrument_container = $InstrumentContainer
 
 func _ready():
 	ERROR_REGEX.compile("SCRIPT ERROR: (.*?)\\n(?:.*?):([0-9]+)")
 	song_file = File.new()
-	connect("done_error_check", self, "_after_error_check")
+	connect("done_error_check", Callable(self, "_after_error_check"))
 
 # Takes a Button since it conveniently sends an icon and message
 # TODO: Not use button as param
 func add_track(instrument: Button):
 	if !gui: return
-	var name = track_name.instance()
+	var name = track_name.instantiate()
 	name.set_instrument(instrument.icon, instrument.text)
 	names.add_child(name)
-	name.connect("pressed", self, "emit_signal", ["track_pressed", instrument.text])
+	name.connect("pressed", Callable(self, "emit_signal").bind("track_pressed", instrument.text))
 	
 	# TODO: Hacky code
 	var inst := GoDAW.get_instrument(instrument.text)
@@ -99,11 +99,11 @@ func sequence():
 			song_file.store_string(song_script_editor.text)
 			song_file.close()
 			in_file = song_script_editor.text
-			thread.start(self, "check_error")
+			thread.start(Callable(self, "check_error"))
 
 func _on_play():
 	sequence()
-	yield(self, "done_error_handling")
+	await self.done_error_handling
 	sequencer.play()
 
 func _on_pause():

@@ -1,15 +1,15 @@
 class_name Wave extends Node2D
 
-var data : PoolByteArray = PoolByteArray([]) setget set_data
-var zero : Color = Color.black setget set_zero
-var wave_color : Color = Color.greenyellow setget set_wave
+var data : PackedByteArray = PackedByteArray([]): set = set_data
+var zero : Color = Color.BLACK: set = set_zero
+var wave_color : Color = Color.GREEN_YELLOW: set = set_wave
 
-func _init(audio : AudioStreamSample):
+func _init(audio : AudioStreamWAV):
 	data = audio.data
 	update()
 
 
-func set_data(value : PoolByteArray):
+func set_data(value : PackedByteArray):
 	data = value
 	update()
 

@@ -1,0 +1,6 @@
+--2026-04-11 22:58:27--  https://downloads.godotengine.org/?version=4.6.2
+Resolving downloads.godotengine.org (downloads.godotengine.org)... 172.67.193.253, 104.21.36.120, 2606:4700:3032::6815:2478, ...
+Connecting to downloads.godotengine.org (downloads.godotengine.org)|172.67.193.253|:443... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2026-04-11 22:58:28 ERROR 404: Not Found.
+

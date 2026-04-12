@@ -1,6 +1,7 @@
 extends PianoInstrument
 
-func _init().("Square"):
+func _init():
+	super("Square")
 	pass
 
 func waveform(t, freq):

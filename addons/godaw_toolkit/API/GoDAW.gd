@@ -10,12 +10,12 @@ func register_instrument(name: String, instrument: PackedScene):
 	self.instruments[name] = instrument
 
 func get_instrument(name: String) -> Instrument:
-	return self.instruments[name].instance()
+	return self.instruments[name].instantiate()
 
 func load_instruments():
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	dir.open("res://Instruments")
-	dir.list_dir_begin(true, true)
+	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 
 	var instruments = []
 
@@ -33,7 +33,7 @@ func load_instruments():
 	for name in instruments:
 		emit_signal("loading_instrument_changed", name)
 
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 		var instrument: PackedScene = load("%s/%s/Instrument.tscn" % [dir.get_current_dir(), name])
 		GoDAW.register_instrument(name, instrument)
 		emit_signal("loading_progress_value_changed")
