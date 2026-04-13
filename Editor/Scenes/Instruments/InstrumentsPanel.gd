@@ -28,4 +28,4 @@ func reload_instruments():
 		instrument_container.add_child(btn)
 
 func _on_Instrument_pressed(button) -> void:
-	emit_signal("instrument_chosen", button)
+	instrument_chosen.emit(button)

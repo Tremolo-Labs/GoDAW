@@ -12,19 +12,19 @@ signal stop()
 }
 
 func _on_PlayButton_pressed():
-	emit_signal("play")
+	play.emit()
 	buttons.Play.disabled = true
 	buttons.Pause.disabled = false
 	buttons.Stop.disabled = false
 
 func _on_PauseButton_pressed():
-	emit_signal("pause")
+	pause.emit()
 	buttons.Play.disabled = false
 	buttons.Pause.disabled = true
 	buttons.Stop.disabled = false
 
 func _on_StopButton_pressed():
-	emit_signal("stop")
+	stop.emit()
 	buttons.Play.disabled = false
 	buttons.Pause.disabled = true
 	buttons.Stop.disabled = true

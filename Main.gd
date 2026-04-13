@@ -32,10 +32,14 @@ func _on_TopMenu_export_pressed():
 
 func _save(file_path):
 	project.song_script = song_editor.song_script_editor.text
-	ResourceSaver.save(file_path, project)
+	ResourceSaver.save(project, file_path)
 
 func _load(file_path):
 	set_project(ResourceLoader.load(file_path))
+
+func set_project(p):
+	project = p
+	project_changed.emit(project)
 
 func _on_TopMenu_save_pressed():
 	if project.saved:
@@ -65,7 +69,7 @@ func _ready():
 	var _n = GoDAW.connect("loading_progress_max_value_changed", Callable(progress, "set_max"))
 	_n = GoDAW.connect("loading_progress_value_changed", Callable(self, "_on_progress_value_changed").bind(progress))
 	_n = GoDAW.connect("loading_instrument_changed", Callable(dialog_manager.progress_label, "set_text"))
-	await GoDAW.load_instruments().completed
+	await GoDAW.load_instruments()
 	dialog_manager.hide_progress()
 	instrument_panel.reload_instruments()
 

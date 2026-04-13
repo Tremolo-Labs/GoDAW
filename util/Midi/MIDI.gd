@@ -257,13 +257,13 @@ func parse_file(filename: String = "") -> bool:
 # in a byte. The first bit indicates weather or not to read the rest.
 
 # Read n length bytes from file, and constructs a string.
-func read_string(file: File, n) -> String:
+func read_string(file: FileAccess, n) -> String:
 	var s := PackedByteArray()
 	for _i in range(n): s.append(file.get_8())
 	return s.get_string_from_ascii()
 
 
-func read_value(file: File):
+func read_value(file: FileAccess):
 	var val = 0
 	var byte = 0
 

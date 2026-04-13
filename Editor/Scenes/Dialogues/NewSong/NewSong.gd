@@ -10,4 +10,4 @@ func _ready():
 	project_type.add_item("SongScript", Project.PROJECT_TYPE.SONGSCRIPT)
 
 func _confirmed():
-	emit_signal("new_project", Project.new(project_name.text, project_type.selected))
+	new_project.emit(Project.new(project_name.text, project_type.selected))

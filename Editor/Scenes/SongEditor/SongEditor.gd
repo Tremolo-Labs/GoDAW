@@ -63,19 +63,19 @@ func check_error():
 		if regex_result:
 			var regex_out = ERROR_REGEX.search(err[0]).get_strings()
 			error = "%s at SongScript:%s" % [regex_out[1], regex_out[2]]
-	emit_signal("done_error_check", error)
+	done_error_check.emit(error)
 
 func _after_error_check(error):
-	emit_signal("stop_loading")
+	stop_loading.emit()
 	error_text = error
 	if error:
-		emit_signal("song_script_error", error_text)
+		song_script_error.emit(error_text)
 		return false
 
 	error_text = ""
 	var song: SongScript = load("user://song.gd").new()
 	if !song.has_method("song"):
-		emit_signal("song_script_error", "Script has no song method")
+		song_script_error.emit("Script has no song method")
 		return false
 	song.sequence.tracks.clear()
 	song.song()
@@ -88,12 +88,12 @@ func _after_error_check(error):
 			sequencer.INSTRUMENTS[track.instrument] = inst
 			instrument_container.add_child(inst)
 	sequencer.sequence(song.sequence)
-	emit_signal("done_error_handling")
+	done_error_handling.emit(true)
 
 # Return true if everything goes alright
 func sequence():
 	if !gui:
-		emit_signal("start_loading")
+		start_loading.emit()
 		if in_file != song_script_editor.text:
 			song_file = FileAccess.open(SONG_PATH, FileAccess.WRITE)
 			song_file.store_string(song_script_editor.text)
@@ -102,7 +102,7 @@ func sequence():
 			thread.start(Callable(self, "check_error"))
 
 func _on_track_pressed(instrument_name: String):
-	emit_signal("track_pressed", instrument_name)
+	track_pressed.emit(instrument_name)
 
 func _on_pause():
 	sequencer.pause()
@@ -111,7 +111,7 @@ func _on_stop():
 	sequencer.stop()
 
 func _on_Sequencer_playback_finished():
-	emit_signal("playback_finished")
+	playback_finished.emit()
 
 func _on_TrackEditor_sequence_song(sequence):
 	sequencer.sequence(sequence)

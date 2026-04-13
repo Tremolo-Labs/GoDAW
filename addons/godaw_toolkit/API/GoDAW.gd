@@ -30,12 +30,12 @@ func load_instruments():
 
 		instrument_name = dir.get_next()
 
-	emit_signal("loading_progress_max_value_changed", instruments.size())
+	loading_progress_max_value_changed.emit(instruments.size())
 
 	for name in instruments:
-		emit_signal("loading_instrument_changed", name)
+		loading_instrument_changed.emit(name)
 
 		await get_tree().idle_frame
 		var instrument: PackedScene = load("%s/%s/Instrument.tscn" % [dir.get_current_dir(), name])
 		GoDAW.register_instrument(name, instrument)
-		emit_signal("loading_progress_value_changed")
+		loading_progress_value_changed.emit()

@@ -6,22 +6,22 @@ var wave_color : Color = Color.GREEN_YELLOW: set = set_wave
 
 func _init(audio : AudioStreamWAV):
 	data = audio.data
-	update()
+	queue_redraw()
 
 
 func set_data(value : PackedByteArray):
 	data = value
-	update()
+	queue_redraw()
 
 
 func set_zero(value : Color):
 	zero = value
-	update()
+	queue_redraw()
 
 
 func set_wave(value : Color):
 	wave_color = value
-	update()
+	queue_redraw()
 
 func sign_extend(value, bits):
 	var sign_bit = 1 << (bits - 1)

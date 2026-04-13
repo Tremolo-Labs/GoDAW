@@ -4,75 +4,75 @@ signal playback_finished()
 signal on_note(progress)
 
 @export var INSTRUMENTS = {}
-@onready var player = $AnimationPlayer
+@onready var timer = $Timer
 
 # Data
 var data: SongSequence
+var events = []
+var total_time = 0.0
+var current_time = 0.0
+var event_index = 0
 var playing: bool = false
 var paused: bool = false
 
 # Functions
 func sequence(sequence: SongSequence):
 	data = sequence
-	var song = Animation.new()
-	song.set_step(0.001)
-
+	events.clear()
 	for track in data.tracks:
 		track = track as Track
-		var track_index = song.add_track(Animation.TYPE_METHOD)
-
-		song.track_set_path(track_index, ".")
-		var current_time = 0.0
+		var track_time = 0.0
 		for note in track.notes:
 			note = note as Note
-
-			if song.track_find_key(track_index, current_time, true) != -1:
-				current_time += 0.001
-
-			current_time += note.note_start_delta
-			song.track_insert_key(track_index, current_time, {
-				"method": "play_note",
-				"args": [track.instrument, note]
-			})
-
-			song.track_insert_key(track_index, current_time + note.duration, {
-				"method": "stop_note",
-				"args": [track.instrument, note]
-			})
-
-		song.length = 0 if track.notes.is_empty() else current_time + track.notes[-1].duration
-
-	player.add_animation("song", song)
+			track_time += note.note_start_delta
+			events.append({"time": track_time, "type": "play", "instrument": track.instrument, "note": note})
+			events.append({"time": track_time + note.duration, "type": "stop", "instrument": track.instrument, "note": note})
+	events.sort_custom(func(a, b): return a.time < b.time)
+	total_time = events.back().time if events else 0.0
 
 func play_note(instrument_name: String, note):
-	emit_signal("on_note", (player.current_animation_position/player.current_animation_length)*100)
 	(INSTRUMENTS[instrument_name] as Instrument).play_note(note)
 
 func stop_note(instrument_name: String, note):
-	emit_signal("on_note", (player.current_animation_position/player.current_animation_length)*100)
 	(INSTRUMENTS[instrument_name] as Instrument).stop_note(note)
 
 func play():
 	playing = true
-	if paused: 
-		paused = false
-		player.play()
-		return
-	player.stop()
-	player.play("song")
+	paused = false
+	timer.start(0.01)  # 10ms timer
 
 func stop():
 	playing = false
-	player.stop()
+	timer.stop()
+	current_time = 0.0
+	event_index = 0
+	# Stop all notes
+	for instrument in INSTRUMENTS.values():
+		(instrument as Instrument).stop_all_notes()
 
 func pause():
 	paused = true
-	player.stop(false)
+	timer.stop()
 
 func seek(sec: float):
-	player.seek(sec, true)
-	pass
+	current_time = sec
+	event_index = 0
+	while event_index < events.size() and events[event_index].time < current_time:
+		event_index += 1
+	# For simplicity, don't replay past notes on seek
 
-func finished(_anim):
-	emit_signal("playback_finished")
-	pass
+func _on_timer_timeout():
+	if not playing or paused:
+		return
+	current_time += 0.01
+	while event_index < events.size() and events[event_index].time <= current_time:
+		var event = events[event_index]
+		if event.type == "play":
+			play_note(event.instrument, event.note)
+		else:
+			stop_note(event.instrument, event.note)
+		event_index += 1
+	on_note.emit(current_time / total_time * 100 if total_time > 0 else 0)
+	if event_index >= events.size():
+		playback_finished.emit()
+		stop()

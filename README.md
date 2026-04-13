@@ -32,3 +32,4 @@ Thanks
 * All [Godot](https://github.com/godotengine/godot) contributors.
 * [Pixelorama](https://github.com/Orama-Interactive/Pixelorama) devs who inspired us to make GoDAW
 * All contributors of GoDAW
+GoDAW is developed using **Godot 4.6.2**.
