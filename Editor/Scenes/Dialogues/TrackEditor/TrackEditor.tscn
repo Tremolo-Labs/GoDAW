@@ -1,13 +1,13 @@
-[gd_scene format=2]
+[gd_scene format=3]
 
-[node name="TrackEditor" type="WindowDialog"]
-margin_right = 48.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 876, 480 )
+[node name="TrackEditor" type="Window"]
+offset_right = 48.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 876, 480 )
 window_title = "Track Editor"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[connection signal="popup_hide" from="." to="." method="_unpopup"]
+[connection signal="close_requested" from="." to="." method="_unpopup"]

@@ -7,7 +7,7 @@ signal save_as_pressed()
 signal export_pressed()
 signal quit_pressed()
 
-onready var menus = {
+@onready var menus = {
 	"Song": {
 		"node": $SongMenu,
 		"elements": { "New": "new_pressed", "Open": "open_pressed",
@@ -34,7 +34,7 @@ func _ready():
 		var m = menus[menu]
 		var node = m.node
 		init_menu(node, m.elements)
-		node.get_popup().connect("id_pressed", self, "on_item_pressed", [menu])
+		node.get_popup().connect("id_pressed", Callable(self, "on_item_pressed").bind(menu))
 
 func project_changed(project):
 	$ProjectName.text = project.project_name

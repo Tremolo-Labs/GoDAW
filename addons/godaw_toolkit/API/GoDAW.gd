@@ -9,13 +9,15 @@ var instruments = {}
 func register_instrument(name: String, instrument: PackedScene):
 	self.instruments[name] = instrument
 
-func get_instrument(name: String) -> Instrument:
-	return self.instruments[name].instance()
+func get_instrument(name: String) -> Node:
+	return self.instruments[name].instantiate()
 
 func load_instruments():
-	var dir = Directory.new()
-	dir.open("res://Instruments")
-	dir.list_dir_begin(true, true)
+	var dir = DirAccess.open("res://Instruments")
+	if dir == null:
+		push_error("Could not open Instruments directory")
+		return
+	dir.list_dir_begin()
 
 	var instruments = []
 
@@ -28,12 +30,12 @@ func load_instruments():
 
 		instrument_name = dir.get_next()
 
-	emit_signal("loading_progress_max_value_changed", instruments.size())
+	loading_progress_max_value_changed.emit(instruments.size())
 
 	for name in instruments:
-		emit_signal("loading_instrument_changed", name)
+		loading_instrument_changed.emit(name)
 
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 		var instrument: PackedScene = load("%s/%s/Instrument.tscn" % [dir.get_current_dir(), name])
 		GoDAW.register_instrument(name, instrument)
-		emit_signal("loading_progress_value_changed")
+		loading_progress_value_changed.emit()

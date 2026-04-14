@@ -73,21 +73,20 @@ enum SystemExclusiveStatus {
 
 # Vars
 var tracks = []
-export var tempo = 0
-export var bpm = 120
-export var ppq = 0.0
+@export var tempo = 0
+@export var bpm = 120
+@export var ppq = 0.0
 
 
 # function to parse files to midi
 func parse_file(filename: String = "") -> bool:
 	# Open file, if any errors return false
-	var input_file = File.new()
-	var err = input_file.open(filename, File.READ)
-	if err:
-		push_error("Error Opening File: " + str(err))
+	var input_file = FileAccess.open(filename, FileAccess.READ)
+	if input_file == null:
+		push_error("Error Opening File: " + str(FileAccess.get_open_error()))
 		return false
 
-	input_file.set_endian_swap(true)
+	input_file.big_endian = true
 
 	# Parse MIDI File
 
@@ -208,9 +207,9 @@ func parse_file(filename: String = "") -> bool:
 								MetaEventName.MetaSetTempo:
 									# Tempo is in microseconds per quarter note
 									if tempo == 0:
-										(tempo |= (input_file.get_8() << 16))
-										(tempo |= (input_file.get_8() << 8))
-										(tempo |= (input_file.get_8() << 0))
+										tempo |= (input_file.get_8() << 16)
+										tempo |= (input_file.get_8() << 8)
+										tempo |= (input_file.get_8() << 0)
 										bpm = (60000000 / tempo)
 										print("Tempo: ", tempo, " (bpm:", bpm, ")")
 								MetaEventName.MetaSMPTEOffset:
@@ -258,13 +257,13 @@ func parse_file(filename: String = "") -> bool:
 # in a byte. The first bit indicates weather or not to read the rest.
 
 # Read n length bytes from file, and constructs a string.
-func read_string(file: File, n) -> String:
-	var s := PoolByteArray()
+func read_string(file: FileAccess, n) -> String:
+	var s := PackedByteArray()
 	for _i in range(n): s.append(file.get_8())
 	return s.get_string_from_ascii()
 
 
-func read_value(file: File):
+func read_value(file: FileAccess):
 	var val = 0
 	var byte = 0
 
